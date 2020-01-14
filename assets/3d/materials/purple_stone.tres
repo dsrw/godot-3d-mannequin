@@ -15,6 +15,6 @@ roughness = 0.31
 normal_enabled = true
 normal_scale = 1.0
 normal_texture = SubResource( 2 )
-uv1_scale = Vector3( 10, 10, 10 )
+uv1_scale = Vector3( 20, 5, 2 )
 uv2_scale = Vector3( 10, 10, 10 )
 uv2_triplanar = true

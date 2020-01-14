@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Player/Mannequiny.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://src/Player/States/Air.gd" type="Script" id=6]
 [ext_resource path="res://src/Player/States/Run.gd" type="Script" id=7]
 [ext_resource path="res://src/Player/Camera/CameraRig.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/Player/States/Fly.gd" type="Script" id=9]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -35,7 +36,6 @@ initial_state = NodePath("Move/Idle")
 
 [node name="Move" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
-gravity = -100.0
 
 [node name="Idle" type="Node" parent="StateMachine/Move"]
 script = ExtResource( 5 )
@@ -45,6 +45,9 @@ script = ExtResource( 6 )
 
 [node name="Run" type="Node" parent="StateMachine/Move"]
 script = ExtResource( 7 )
+
+[node name="Fly" type="Node" parent="StateMachine/Move"]
+script = ExtResource( 9 )
 
 [node name="CameraRig" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38644, -0.456316 )

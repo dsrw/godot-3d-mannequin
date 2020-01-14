@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/3d/materials/floor.tres" type="Material" id=2]
 [ext_resource path="res://src/Main/Game.gd" type="Script" id=3]
 [ext_resource path="res://assets/3d/level/level_environment.tres" type="Environment" id=4]
-[ext_resource path="res://src/Level/Playground.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/3d/materials/purple_stone.tres" type="Material" id=5]
 [ext_resource path="res://src/Debug/DebugPanel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/theme/gdquest.theme" type="Theme" id=7]
 [ext_resource path="res://src/Debug/DebugDock.gd" type="Script" id=8]
@@ -16,6 +16,11 @@ size = Vector2( 100, 100 )
 margin = 0.001
 extents = Vector3( 50, 1, 50 )
 
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="ConcavePolygonShape" id=4]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 
@@ -23,15 +28,16 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.58673, -0.0176746, -5.36121 )
 collision_mask = 2
 
+[node name="Move" parent="Player/StateMachine" index="0"]
+gravity = -80.0
+
 [node name="Camera" parent="Player/CameraRig/StateMachine" index="0"]
 is_y_inverted = true
-
-[node name="Playground" parent="." instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -16 )
 
 [node name="TestMap" type="Spatial" parent="."]
 
 [node name="Ground" type="MeshInstance" parent="TestMap"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0288469, 0.0380549, -0.00152493 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 
@@ -42,6 +48,16 @@ collision_mask = 0
 [node name="CollisionShape" type="CollisionShape" parent="TestMap/Ground/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="TestMap"]
+transform = Transform( 20, 0, 0, 0, 0.5, 0, 0, 0, 5, 0.0122967, 1.1, 0.0417976 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 5 )
+
+[node name="StaticBody" type="StaticBody" parent="TestMap/MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="TestMap/MeshInstance/StaticBody"]
+shape = SubResource( 4 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.766044, 0.166366, -0.620885, 0.271654, 0.791635, 0.547283, 0.582563, -0.587909, 0.561233, -3.00978, 2.72808, 0 )

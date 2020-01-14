@@ -189,5 +189,6 @@ zoom_out={
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/shading/force_vertex_shading=true
 quality/filters/msaa=3
 environment/default_environment="res://default_env.tres"

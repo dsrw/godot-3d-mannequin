@@ -1,6 +1,10 @@
 extends PlayerState
 # State for when the player is jumping and falling.
 
+func unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("jump"):
+		_state_machine.transition_to("Move/Fly")
+
 
 func physics_process(delta: float) -> void:
 	_parent.physics_process(delta)

@@ -9,6 +9,7 @@ export var max_speed: = 50.0
 export var move_speed: = 500.0
 export var gravity = -80.0
 export var jump_impulse = 25
+export var flying = false
 
 var velocity: = Vector3.ZERO
 
@@ -28,7 +29,9 @@ func physics_process(delta: float) -> void:
 	var move_direction: = forwards + right
 	if move_direction.length() > 1.0:
 		move_direction = move_direction.normalized()
-	move_direction.y = 0
+
+	if !flying:
+		move_direction.y = 0
 	skin.move_direction = move_direction
 
 	# Rotation
@@ -36,8 +39,11 @@ func physics_process(delta: float) -> void:
 		player.look_at(player.global_transform.origin + move_direction, Vector3.UP)
 
 	# Movement
-	velocity = calculate_velocity(velocity, move_direction, delta)
-	velocity = player.move_and_slide(velocity, Vector3.UP)
+	velocity = calculate_velocity(velocity, move_direction, delta, flying)
+	if flying:
+		player.move_and_collide(velocity * delta)
+	else:
+		velocity = player.move_and_slide(velocity, Vector3.UP)
 
 
 func enter(msg: Dictionary = {}) -> void:
@@ -66,13 +72,15 @@ static func get_input_direction() -> Vector3:
 func calculate_velocity(
 		velocity_current: Vector3,
 		move_direction: Vector3,
-		delta: float
+		delta: float,
+		flying: bool
 	) -> Vector3:
 		var velocity_new: = velocity_current
 
 		velocity_new = move_direction * delta * move_speed
 		if velocity_new.length() > max_speed:
 			velocity_new = velocity_new.normalized() * max_speed
-		velocity_new.y = velocity_current.y + gravity * delta
+		if !flying:
+			velocity_new.y = velocity_current.y + gravity * delta
 
 		return velocity_new

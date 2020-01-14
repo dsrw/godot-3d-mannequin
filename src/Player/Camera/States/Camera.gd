@@ -76,7 +76,7 @@ static func get_look_direction() -> Vector2:
 # Returns the move direction of the character controlled by the player
 static func get_move_direction() -> Vector3:
 	return Vector3(
-        0,
+		0,
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_back") - Input.get_action_strength("move_front")
 	)
