@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody",
+"class": "Bot",
+"language": "GDScript",
+"path": "res://src/Bot/Bot.gd"
+}, {
+"base": "State",
+"class": "BotState",
+"language": "GDScript",
+"path": "res://src/Bot/BotState.gd"
+}, {
 "base": "Spatial",
 "class": "CameraRig",
 "language": "GDScript",
@@ -45,6 +55,8 @@ _global_script_classes=[ {
 "path": "res://src/Main/StateMachine/StateMachine.gd"
 } ]
 _global_script_class_icons={
+"Bot": "",
+"BotState": "",
 "CameraRig": "",
 "CameraState": "",
 "Mannequiny": "",
@@ -56,7 +68,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="3D Third-Person Open Mannequin"
+config/name="TCC Year 2 Starting Project"
 run/main_scene="res://src/Main/Game.tscn"
 config/icon="res://icon.png"
 
